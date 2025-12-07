@@ -40,4 +40,8 @@ RETURN
     WHERE g.Gender = @Gender
 );
 ```
+## Update underlying table
+we can using inline update underlying table but not multi statement table valued function
 
+Example 
+`update fn_ILTVF_GetEmployeeByGender() set Name = 'Sam' where Id = 1`
