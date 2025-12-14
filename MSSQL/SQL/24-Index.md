@@ -57,10 +57,10 @@ Có clustered → Clustered Key
 SELECT khi có NONCLUSTERED INDEX:
 `WHERE OrderId = 1000`
 SQL Server làm:
-1️⃣ Dùng B-Tree → Index Seek → tìm leaf
-2️⃣ Lấy Row Locator
-3️⃣ Nhảy tới đúng page của bảng
-4️⃣ Đọc row
+- Dùng B-Tree → Index Seek → tìm leaf
+- Lấy Row Locator
+- Nhảy tới đúng page của bảng
+- Đọc row
 
 ➡ Ít page hơn → nhanh hơn
 
