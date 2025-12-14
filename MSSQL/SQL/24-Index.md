@@ -50,9 +50,7 @@ Leaf page chứa:
 ```
 OrderId | Row Locator
 ```
-Row Locator là:
-Heap → RID (File:Page:Slot)
-Có clustered → Clustered Key
+Row Locator là: địa chỉ để DB tìm tới đúng dòng dữ liệu , địa chỉ vật lý trên disk, Chỉ xuất hiện trong NONCLUSTERED INDEX
 📌 Index không chứa full row
 SELECT khi có NONCLUSTERED INDEX:
 `WHERE OrderId = 1000`
@@ -103,4 +101,41 @@ SQL Server làm:
 - Clustered → chỉ đường = dữ liệu
 - Khác nhau ở leaf page chứa gì
 ```
+# Index gắn với chọn Column
+## Vì sao index phải gắn với column?
+👉 Vì database tìm dữ liệu dựa trên GIÁ TRỊ, không dựa trên dòng.
+Index không biết:
+bạn muốn tìm dòng thứ mấy
+bạn muốn tìm “bản ghi nào đó”
+Index chỉ biết:
+“Tôi có danh sách các giá trị của cột X, được sắp xếp, và mỗi giá trị chỉ ra dòng dữ liệu tương ứng”
+📌 Nên bắt buộc phải chọn column khi tạo index.
 
+## Index thực sự lưu cái gì (nhắc lại rất quan trọng)
+`CREATE INDEX IX_Users_Email ON Users(Email);`
+
+Index sẽ lưu kiểu:
+```
+Email                → RowLocator
+----------------------------------
+a@gmail.com          → (ID = 1001)
+b@gmail.com          → (ID = 1050)
+c@gmail.com          → (ID = 2000)
+```
+➡ Không có Email → index không có gì để tra
+
+## Khi nào WHERE “kích hoạt” index?
+👉 KHÔNG phải cứ có WHERE là dùng index
+Index chỉ được dùng khi:
+✅ Điều kiện WHERE liên quan trực tiếp đến cột được index
+```
+WHERE Email = 'a@gmail.com'     -- dùng index
+WHERE Email LIKE 'a%'           -- dùng index
+```
+❌ KHÔNG dùng index nếu:
+```
+WHERE UPPER(Email) = 'A@GMAIL.COM'
+WHERE YEAR(CreatedDate) = 2024
+WHERE Salary + 1000 > 5000
+```
+➡ Vì DB không dùng trực tiếp giá trị gốc trong index
