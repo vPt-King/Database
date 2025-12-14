@@ -94,11 +94,13 @@ SQL Server làm:
 ➡ KHÔNG lookup thêm
 ➡ Ít I/O hơn nonclustered
 
-#Tóm tắt
+# Tóm tắt
+```
 - Database lưu theo PAGE, không theo row
 - Heap = không chỉ đường → scan
 - Index = B-Tree chỉ đường
 - Nonclustered → chỉ đường + lookup
 - Clustered → chỉ đường = dữ liệu
 - Khác nhau ở leaf page chứa gì
+```
 
