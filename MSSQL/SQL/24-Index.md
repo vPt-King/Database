@@ -139,3 +139,15 @@ WHERE YEAR(CreatedDate) = 2024
 WHERE Salary + 1000 > 5000
 ```
 ➡ Vì DB không dùng trực tiếp giá trị gốc trong index
+
+# Các loại index
+```
+Index	Cấu trúc	Leaf chứa	Dùng cho
+Clustered	B-Tree	Data	OLTP, range
+Nonclustered	B-Tree	Key + locator	OLTP
+Composite	B-Tree	Tùy loại	Multi-column
+Covering	B-Tree	Key + data	Tránh lookup
+Unique	B-Tree	Key	Ràng buộc
+Filtered	B-Tree	Partial data	Selective
+Columnstore	Column	Column segments	OLAP
+```
