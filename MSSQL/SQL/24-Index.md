@@ -86,9 +86,10 @@ Leaf chính là dữ liệu thật
 SELECT khi có CLUSTERED INDEX
 `WHERE OrderId = 1000`
 SQL Server làm:
-
-1️⃣ Root → Intermediate → Leaf
-2️⃣ Đọc row
+```
+- Root → Intermediate → Leaf
+- Đọc row
+```
 
 ➡ KHÔNG lookup thêm
 ➡ Ít I/O hơn nonclustered
