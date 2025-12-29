@@ -89,3 +89,4 @@ BEGIN
     Insert into tblEmployee(Id, Name, Gender, DepartmentId)
     Select Id, name, Gender, @DeptId from inserted
 END
+```
