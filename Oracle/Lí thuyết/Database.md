@@ -73,7 +73,7 @@ blocks, extents, và segments.
 Một database có thể được phân chia về mặt logic thành các đơn vị gọi là các tablespaces,
 Tablespaces thường bao gồm một nhóm các thành phần có quan hệ logic với nhau.
 
-![Diagram](datafile vs tablespace.png)
+![Diagram](datafile_vs_tablespace.png)
 
 Có một số điểm ta cần quan tâm:
 ▪ Mỗi database có thể phân chia về mặt logic thành một hay nhiều tablespace.
