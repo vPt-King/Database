@@ -98,7 +98,7 @@ Thành phần này quản lý chức năng cốt lõi cho các module Plan Cache
 
 \## Plan cache
 
-!\[Plan cache](images/plancache.png)
+![Plan cache](./images/plancache.png)
 
 ```
 
