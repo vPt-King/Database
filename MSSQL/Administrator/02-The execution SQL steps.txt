@@ -1,0 +1,29 @@
+- Nhận truy vấn: Protocol Layer nhận truy vấn từ ứng dụng hoặc người dùng.
+
+- Phân tích truy vấn (Query Parsing): CMD Parser kiểm tra lỗi cú pháp và ngữ nghĩa của truy vấn, tạo Query Tree biểu diễn cấu trúc logic của truy vấn.
+
+- Tối ưu hóa truy vấn (Query Optimization): Optimizer thực hiện tối ưu hóa để tìm excution plan đỡ tốn kém nhất(không nhất thiết là kế hoạch tốt nhất) và tạo ra excution plan
+
+- Kiểm tra và lưu trữ kế hoạch thực thi (Plan Caching): Buffer Manager kiểm tra xem excution plan đã tồn tại trong Plan Cache hay chưa, nếu excution plan đã tồn tại nó sẽ được tái sử dụng, nếu không tồn tại excution plan sẽ được tạo và lưu trữ vào Plan Cache để sử dụng cho các truy vấn tương lai.
+
+- Truy xuất dữ liệu (Query Execution):
+
+    Query Executor nhận kế hoạch thực thi từ Optimizer hoặc Plan Cache.
+    Access Method xác định loại truy vấn (SELECT hoặc không SELECT).
+    Nếu là truy vấn SELECT, dữ liệu được lấy từ Buffer Manager.
+    Nếu là truy vấn không SELECT, dữ liệu được cập nhật và ghi vào Log Manager và Lock Manager quản lý các khóa dữ liệu.
+
+- Ghi dữ liệu tạm thời và cập nhật (Data Fetching and Updates):
+
+    Buffer Manager kiểm tra dữ liệu trong Buffer Cache:Nếu dữ liệu có trong Buffer Cache (Soft Parsing), nó sẽ được sử dụng. Nếu không có, dữ liệu sẽ được lấy từ Data Storage (Hard Parsing) và lưu vào Buffer Cache.
+    Dirty Pages: Các trang dữ liệu đã thay đổi nhưng chưa được ghi trở lại đĩa.
+
+- Ghi dữ liệu vào disk:
+
+    Checkpoint và Write-Ahead Logging: Chạy định kỳ để ghi các trang dữ liệu từ Dirty Pages vào đĩa. Dữ liệu được đẩy vào log file trước khi ghi vào Data Storage.
+    Lazy Writer: Giải phóng các Dirty Pages khỏi bộ đệm khi cần bộ nhớ cho giao dịch mới. Sử dụng thuật toán LRU (Least Recently Used) để dọn dẹp data pages từ buffer cache và ghi vào disk.
+
+- Trả kết quả:
+
+    Sau khi dữ liệu được xử lý và truy xuất, kết quả được trả về Protocol Layer.
+    Gửi kết quả đến ứng dụng hoặc người dùng.
